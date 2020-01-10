@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
 const csrf = require('csurf');
@@ -122,3 +123,29 @@ router.get('/logout', (req, res) => {
 });
 
 module.exports = router;
+=======
+const express = require("express");
+const router = express.Router();
+const csrf = require("csurf");
+const csrfProtection = csrf({ cookie: true });
+const db = require("../models");
+
+router.get("/join", csrfProtection, (req, res) => {
+  res.render("account/join", { csrfToken: req.csrfToken() });
+});
+
+router.post("/join", csrfProtection, async (req, res) => {
+  db.Users.create({
+    username: req.body.username,
+    password: req.body.password,
+    name: req.body.name,
+    email: req.body.email,
+    mobile: req.body.mobile,
+    division: 0
+  }).then(() => {
+    res.redirect("/");
+  });
+});
+
+module.exports = router;
+>>>>>>> b25a21503f005cc94ce9d89228759f3b6211a0a1
