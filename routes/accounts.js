@@ -15,7 +15,7 @@ router.post("/join", csrfProtection, async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     mobile: req.body.mobile,
-    division: req.body.division
+    division: 0
   }).then(() => {
     res.redirect("/");
   });
