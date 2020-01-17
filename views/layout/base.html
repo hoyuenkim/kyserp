@@ -8,14 +8,14 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="../../style/component.css">
+    <link rel="stylesheet" type="text/css" href="../../style/component.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <title>{{title}}</title>
   </head>
   <body>
-    <div class="container col-offset-1 col-sm-10">
-      {% block content %}{% endblock %}
+    <div class="container col-sm-offset-1 col-sm-10">
+      {% include "layout/navibar.html" %} {% block content %}{% endblock %}
     </div>
   </body>
 </html>
