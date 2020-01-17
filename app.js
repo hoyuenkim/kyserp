@@ -73,7 +73,7 @@ app.get("/", csrfProtection, (req, res) => {
   });
 });
 
-app.get("/main", loginRequired, (req, res) => {
+app.get("/main", loginRequired, async (req, res) => {
   res.render("main/home.html");
 });
 

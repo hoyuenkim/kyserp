@@ -113,7 +113,6 @@ router.post("/username/confirm", async (req, res) => {
       username: req.body.username
     }
   });
-  console.log(user);
   res.json(user);
 });
 
