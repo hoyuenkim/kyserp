@@ -10,6 +10,7 @@ db.Product = require('./Product')(sequelize, Sequelize);
 db.Stock = require('./Stock')(sequelize, Sequelize);
 db.Items = require('./Items')(sequelize, Sequelize);
 db.Site = require('./Site')(sequelize, Sequelize);
+db.Company = require('./Company')(sequelize, Sequelize);
 
 Object.keys(db).forEach((modelName) => {
 	if (db[modelName].associate) {

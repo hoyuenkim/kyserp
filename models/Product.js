@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Product.associate = (db) => {
 		db.Product.hasMany(db.Stock);
+		db.Product.hasMany(db.Items);
 		db.Product.belongsTo(db.Company);
 	};
 

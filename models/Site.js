@@ -20,8 +20,9 @@ module.exports = (sequelize, DataTypes) => {
 			collate: 'utf8_general_ci'
 		}
 	);
-	Site.associtate = (db) => {
+	Site.associate = (db) => {
 		db.Site.hasMany(db.Items);
+		db.Site.belongsTo(db.Company);
 	};
 	return Site;
 };

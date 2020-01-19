@@ -27,7 +27,7 @@ nunjucks.configure('views', {
 });
 
 dotenv.config();
-db.sequelize.sync();
+db.sequelize.drop();
 passportConfig();
 
 app.use(morgan('dev'));

@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 
 	Stock.associate = (db) => {
 		db.Stock.belongsTo(db.Product);
+		db.Stock.belongsTo(db.Company);
+		db.Stock.belongsTo(db.Users);
 	};
 
 	return Stock;

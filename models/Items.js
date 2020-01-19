@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER(),
 				defaultValue: 0,
 				allowNull: false
+			},
+			status: {
+				type: DataTypes.BOOLEAN(),
+				defaultValue: true
 			}
 		},
 		{
@@ -16,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
 
 	Items.associate = (db) => {
 		db.Items.belongsTo(db.Site);
+		db.Items.belongsTo(db.Product);
 	};
 
 	return Items;

@@ -1,5 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 	const Company = sequelize.define(
+		'company',
 		{
 			bizcode: {
 				type: DataTypes.STRING(),
@@ -27,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
 	Company.associate = (db) => {
 		db.Company.hasMany(db.Site);
 		db.Company.hasMany(db.Product);
-		db.Company.belongsTo(db.User);
+		db.Company.hasMany(db.Users);
 	};
 
 	return Company;
