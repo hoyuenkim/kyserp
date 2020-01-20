@@ -1,0 +1,36 @@
+{% extends "layout/base.html" %} {% include "layout/navibar.html" %} {% block content -%}
+
+<div class="col-sm-offset-4 col-sm-4">
+  <form action="" method="POST" enctype="multipart/form-data">
+    <label for="name">제품명</label>
+    <input class="form-control" id="name" type="text" name="name" onchange="nameConfirm(this)" />
+    <label for="name">구분</label>
+    <select class="form-control" name="section" id="section">
+      <option value="onepass">원패스</option>
+      <option value=""></option>
+    </select>
+    <label for="stock">수량</label>
+    <input class="form-control" id="stock" type="text" name="stock" />
+    <input class="btn btn-success submit" type="submit" value="등록하기" />
+  </form>
+</div>
+
+<script>
+  const nameConfirm = e => {
+    axios({
+      url: "/product/name/confirm",
+      method: "post",
+      data: {
+        name: e.value
+      }
+    })
+      .then(data => {
+        console.log(data);
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+</script>
+
+{% endblock %}

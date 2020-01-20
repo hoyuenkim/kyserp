@@ -32,7 +32,7 @@ div.menu {
   border-bottom-right-radius: 10px;
   border: 1px solid #f5f5f5;
   background-color: #f5f5f5;
-  opacity: 0.7;
+  z-index: 1;
 }
 
 .navbar-nav {
@@ -48,3 +48,16 @@ div.menu {
 .navbar-right {
   width: 10%;
 }
+
+.submit {
+  margin-top: 5%;
+  width: 100%;
+}
+
+div.wide {
+  width: 100%;
+}
+
+/* .form-align {
+  text-align: center;
+} */

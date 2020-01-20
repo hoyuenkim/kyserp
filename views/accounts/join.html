@@ -1,11 +1,12 @@
-{% set title=회원가입 %} {% extends "layout/base.html" %} {% block content -%}
-<div class="col-sm-offset-4 col-sm-6">
+{% extends "layout/base.html" %} {% include "layout/navibar.html" %} {% block content -%}
+
+<div class="col-sm-offset-4 col-sm-4">
   <div class="panel">
     <div class="panel-heading">
       <h3>회원가입</h3>
     </div>
     <div class="panel-default">
-      <form action="" method="POST">
+      <form class="form-align" action="" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
         <label for="username">이메일</label>
         <input
@@ -28,18 +29,7 @@
         <input class="form-control" type="text" id="name" name="name" />
         <label for="phone">전화번호</label>
         <input class="form-control" type="text" id="phone" name="phone" />
-        <label for="address">주소</label>
-        <input
-          class="form-control"
-          id="address"
-          type="text"
-          name="address"
-          readonly
-          onclick="PostCode()"
-        />
-        <label for="address_detail">상세주소</label>
-        <input class="form-control" id="address_detail" type="text" name="address_detail" />
-        <input class="btn btn-primary" type="submit" value="회원가입" />
+        <input class="btn btn-primary submit" type="submit" value="회원가입" />
       </form>
     </div>
   </div>

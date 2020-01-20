@@ -1,0 +1,13 @@
+{% extends "layout/base.html" %} {% include "layout/navibar.html" %} {% block content -%}
+<div class="col-sm-12">
+  <h1>{{ %title %}}</h1>
+
+  <div></div>
+  {% for product in productList %}
+  <div class="col-sm-2">{{ product.name }}</div>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-12">
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
