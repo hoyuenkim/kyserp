@@ -1,7 +1,7 @@
 {% extends "layout/base.html" %} {% include "layout/navibar.html" %} {% block content -%}
 
 <div class="col-sm-offset-4 col-sm-4">
-  <form action="" method="POST" enctype="multipart/form-data">
+  <form action="" id="form" method="POST" enctype="multipart/form-data">
     <label for="name">제품명</label>
     <input class="form-control" id="name" type="text" name="name" onchange="nameConfirm(this)" />
     <label for="name">구분</label>
@@ -9,8 +9,10 @@
       <option value="onepass">원패스</option>
       <option value=""></option>
     </select>
-    <label for="stock">수량</label>
-    <input class="form-control" id="stock" type="text" name="stock" />
+    <label for="price">단가</label>
+    <input class="form-control" type="text" name="price">
+    <label for="cost">원가</label>
+    <input class="form-control" type="text" name="cost">
     <input class="btn btn-success submit" type="submit" value="등록하기" />
   </form>
 </div>
@@ -25,12 +27,28 @@
       }
     })
       .then(data => {
-        console.log(data);
+        
       })
       .catch(e => {
         console.error(e);
       });
   };
+
+  $('#form').submit(()=>{
+    const length = $('.form-control').length;
+    const nameList = [];
+    for(i=0;i<length;i++) {
+      const name = $('.form-control')[i].name;
+      if(name) nameList.push(name)
+    }
+    for( name of nameList)  {
+      const value =$(`input[name=${name}]`).val()
+      if(!value) {
+        alert(`${name}의 값을 채워주세요!`)
+        return false;
+      }
+    }
+  })
 </script>
 
 {% endblock %}

@@ -35,9 +35,9 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	Users.associate = (db) => {
-		db.Users.belongsTo(db.Company);
+		db.Users.hasOne(db.Company);
 		db.Users.hasMany(db.Stock);
-		db.Users.belongsTo(db.Site);
+		db.Users.hasMany(db.Site);
 	};
 
 	return Users;

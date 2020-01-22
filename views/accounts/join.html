@@ -1,4 +1,4 @@
-{% extends "layout/base.html" %} {% include "layout/navibar.html" %} {% block content -%}
+{% extends "layout/base.html" %} {% block content -%}
 
 <div class="col-sm-offset-4 col-sm-4">
   <div class="panel">
@@ -6,7 +6,7 @@
       <h3>회원가입</h3>
     </div>
     <div class="panel-default">
-      <form class="form-align" action="" method="POST">
+      <form class="form-control" id="form" action="" method="POST">
         <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
         <label for="username">이메일</label>
         <input
@@ -45,8 +45,7 @@
       }
     })
       .then(res => {
-        console.log(res);
-        if (res.username) {
+        if (res.data) {
           alert("동일한 아이디가 존재합니다!");
           document.getElementById("username").value = "";
         }
@@ -66,7 +65,24 @@
     }
   };
 
+  $('#form').submit(()=>{
+    const length = $('.form-control').length;
+    const nameList = [];
+    for(i=0;i<length;i++) {
+      const name = $('.form-control')[i].name;
+      if(name) nameList.push(name)
+    }
+    for( name of nameList)  {
+      const value =$(`input[name=${name}]`).val()
+      if(!value) {
+        alert(`${name}의 값을 채워주세요!`)
+        return false;
+      }
+    }
+  })
+
   const PostCode = () => {
+
     new daum.Postcode({
       oncomplete: function(data) {
         // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.

@@ -26,9 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 	);
 
 	Company.associate = (db) => {
-		db.Company.hasMany(db.Site);
 		db.Company.hasMany(db.Product);
-		db.Company.hasMany(db.Users);
 	};
 
 	return Company;
