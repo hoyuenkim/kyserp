@@ -20,15 +20,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get('/', async (req, res) => {
-	let page;
-	page ? req.query.page : 1;
-	const maxPage = db.Product.count() / process.env.LIMIT;
-	const search = createSearch(req.query).findContent;
-	const productList = await db.Product.findAll({
-		where: search,
-		offset: page * process.env.LIMIT,
-		limit: process.env.LIMIT
-	});
+	// let page;
+	// page ? req.query.page : 1;
+	// const maxPage = db.Product.count() / process.env.LIMIT;
+	// const search = createSearch(req.query).findContent;
+	// const productList = await db.Product.findAll({
+	// 	where: search,
+	// 	offset: page * process.env.LIMIT,
+	// 	limit: process.env.LIMIT
+	// });
+	const maxPage = 5;
+	const productList = [
+		{ name: 'DKC3102S', section: '원패스', price: 10, cost: 10 },
+		{ name: 'DKC3102S', section: '원패스', price: 10, cost: 10 },
+		{ name: 'DKC3102S', section: '원패스', price: 10, cost: 10 }
+	];
 	res.render('product/home', { productList, maxPage });
 });
 

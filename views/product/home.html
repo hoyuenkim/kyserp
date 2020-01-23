@@ -1,12 +1,31 @@
 {% extends "layout/base.html" %} {% include "layout/navibar.html" %} {% block content -%}
 <div class="col-sm-12">
-  <h1>{{ %title %}}</h1>
-
-  <div></div>
-  {% for product in productList %}
-  <div class="col-sm-2">{{ product.name }}</div>
-  <div class="col-sm-4"></div>
+  <h1>제품</h1>
   <div class="col-sm-12">
+    <div class="col-sm-12">
+      <div class="col-sm-4">상품명</div>
+      <div class="col-sm-2">구분</div>
+      <div class="col-sm-3">단가</div>
+      <div class="col-sm-3">원가</div>
+    </div>
+  {% for product in productList %}
+  <div class="col-sm-4">{{ product.name }}</div>
+  <div class="col-sm-2">{{ product.section }}</div>
+  <div class="col-sm-3">{{ product.price }}</div>
+  <div class="col-sm-3">{{ product.cost }}</div>
+    {% endfor %}
+  </div>
+  <div class="paging">
+    {{particialQuery}}
+    {%if(particialQuery) "test" %}
+    <div>
+      <p>
+        {{particialQuery}}
+      </p>
+    a
+    </div>
+    {% for i in range(1, maxPage) %}
+      <a href="/product?page={{i}}"><div class="btn btn-default page">{{i}}</div></a>
     {% endfor %}
   </div>
 </div>

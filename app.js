@@ -8,7 +8,8 @@ const passport = require('passport');
 const passportConfig = require('./passport');
 const path = require('path');
 const loginRequired = require('./libs/loginRequired');
-const nunjucks = require('nunjucks');
+// const nunjucks = require('nunjucks');
+const ejs = require('ejs');
 
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
@@ -22,14 +23,17 @@ dotenv.config();
 db.sequelize.sync();
 passportConfig();
 
-app.engine('html', nunjucks.render);
-app.set('view engine', 'html');
+// app.engine('html', nunjucks.render);
+// app.set('view engine', 'html');
 
-nunjucks.configure('views', {
-	autoescape: true,
-	express: app,
-	watch: true
-});
+// nunjucks.configure('views', {
+// 	autoescape: true,
+// 	express: app,
+// 	watch: true
+// });
+
+app.set('views', path.join(__dirname, 'templates'));
+app.set('view engine', 'ejs');
 
 app.use(morgan('dev'));
 app.use(cookieParser(process.env.COOKIE_PASSWORD));
@@ -103,6 +107,10 @@ app.get('/main', loginRequired, async (req, res) => {
 			'eddie'
 		]
 	});
+});
+
+app.get('/home', (req, res) => {
+	res.render('home');
 });
 
 app.listen(process.env.PORT, () => {

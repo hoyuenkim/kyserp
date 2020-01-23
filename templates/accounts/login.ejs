@@ -1,0 +1,13 @@
+<%- include('../layout/header') %>
+    <div class="col-sm-offset-4 col-sm-4" style="margin-top: 15%; text-align: center">
+      <img src="/public/logo.png" alt="" style="text-align: center" />
+      <div class="col-sm-12 form-margin" style="text-align: right">
+        <a href="/accounts/join" style="text-decoration: none">회원가입</a>
+      </div>
+      <form action="/accounts/login" method="POST">
+        <input class="form-control form-margin" type="text" name="username" />
+        <input class="form-control form-margin" type="password" name="password" />
+        <input class="btn btn-default btn-margin" type="submit" value="로그인" />
+      </form>
+    </div>
+<%- include('../layout/footer') %>

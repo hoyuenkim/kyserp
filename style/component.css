@@ -1,63 +1,73 @@
 .btn-margin {
-  margin: 2%;
-  width: 100%;
+	margin: 2%;
+	width: 100%;
 }
 
 .form-margin {
-  margin: 2%;
-  width: 100%;
+	margin: 2%;
+	width: 100%;
 }
 
 .navigation {
-  text-align: center;
+	text-align: center;
 }
 
 a:link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 ul {
-  list-style: none;
+	list-style: none;
 }
 
 .table-borderless td,
 .table-borderless th {
-  border-style: none !important;
+	border-style: none !important;
 }
 
 div.menu {
-  position: absolute;
-  width: 100%;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border: 1px solid #f5f5f5;
-  background-color: #f5f5f5;
-  z-index: 1;
+	position: absolute;
+	width: 100%;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: 1px solid #f5f5f5;
+	background-color: #f5f5f5;
+	z-index: 1;
 }
 
 .navbar-nav {
-  width: 80% !important;
-  text-align: center !important;
+	width: 80% !important;
+	text-align: center !important;
 }
 
 .navbar-nav > li {
-  padding-left: 5%;
-  padding-right: 5%;
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
 .navbar-right {
-  width: 10%;
+	width: 10%;
 }
 
 .submit {
-  margin-top: 5%;
-  width: 100%;
+	margin-top: 5%;
+	width: 100%;
 }
 
 div.wide {
-  width: 100%;
+	width: 100%;
 }
 
-/* .form-align {
-  text-align: center;
-} */
+.paging {
+	border-top: 1px black solid;
+	padding: 1%;
+	float: left;
+	width: 100%;
+	margin: 1%;
+	text-align: center;
+}
+
+.tr {
+	background-color: aqua;
+	/* border-bottom: 1px black solid; */
+}
