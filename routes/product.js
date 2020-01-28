@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const loginRequired = require('../libs/loginRequired');
 const db = require('../models');
-const op = require('sequelize');
 const multer = require('multer');
 const path = require('path');
 require('dotenv').config();
@@ -42,32 +41,39 @@ router.get('/regist', loginRequired, (req, res) => {
 	res.render('product/regist');
 });
 
-router.post('/regist', loginRequired, upload.single('thumbnail'), async (req, res) => {
-	db.Product
-		.create({
+router.post('/regist', upload.single('thumbnail'), async (req, res) => {
+	try {
+		console.log(req.body);
+		const product = await db.Product.create({
 			name: req.body.name,
-			section: req.body.section,
-			thumbnail: req.file ? req.file : ''
-		})
-		.then((model) => {
-			console.log(model);
+			thumbnail: req.file ? req.file.filename : '',
+			price: req.body.price,
+			cost: req.body.cost
 		});
+		const stock = await db.Stock.create({
+			quantity: req.body.quantity,
+			productId: product.id
+		});
+		await product.addStock(stock);
+		res.status(200).redirect('/product');
+	} catch (e) {
+		console.error(e);
+		res.status(500).json(e);
+	}
 });
 
-router.post('/name/confirm', (req, res) => {
-	db.Product
-		.findOne({
+router.post('/name/confirm', async (req, res) => {
+	console.log(req.body);
+	try {
+		const product = await db.Product.findOne({
 			where: {
 				name: req.body.name
 			}
-		})
-		.then((product) => {
-			res.status(500).json(product);
-		})
-		.catch((e) => {
-			console.error(e);
-			res.status(404).send(e);
 		});
+		res.status(200).json(product);
+	} catch (e) {
+		console.log(error);
+	}
 });
 
 const createSearch = (queries) => {

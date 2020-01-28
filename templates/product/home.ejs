@@ -9,17 +9,28 @@
       <div class="col-sm-3">단가</div>
       <div class="col-sm-3">원가</div>
     </div>
-  <% for product in productList %>
+  <% for (product of productList){ %>
   <div class="col-sm-4"><%= product.name %></div>
   <div class="col-sm-2"><%= product.section %></div>
   <div class="col-sm-3"><%= product.price %></div>
   <div class="col-sm-3"><%= product.cost %></div>
-    <% endfor %>
+    <% } %>
+  </div>
+  <div class="col-sm-12">
+    <form action="">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-offset-1 col-sm-6">
+        <input class="form-control" style="width: 100%;" type="text">
+      </div>
+      <div class="col-sm-offset-1 col-sm-2">
+        <input class="btn btn-default" style="width: 100%;" type="submit" value="검색">
+      </div>
+    </form>
   </div>
   <div class="paging">
-    <% for i in range(1, maxPage) %>
+    <% for(i=0;i<maxPage;i++){ %>
       <a href="/product?page=<%=i%>"><div class="btn btn-default page"><%=i%></div></a>
-    <% endfor %>
+    <% } %>
   </div>
 </div>
 <%- include('../layout/footer') %>
