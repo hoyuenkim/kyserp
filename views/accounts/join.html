@@ -38,7 +38,7 @@
 <script>
   const usernameConfirm = e => {
     axios({
-      url: "/accounts/username/confirm",
+      url: "/axios/user/find/one",
       method: "post",
       data: {
         username: e.value
@@ -65,24 +65,23 @@
     }
   };
 
-  $('#form').submit(()=>{
-    const length = $('.form-control').length;
+  $("#form").submit(() => {
+    const length = $(".form-control").length;
     const nameList = [];
-    for(i=0;i<length;i++) {
-      const name = $('.form-control')[i].name;
-      if(name) nameList.push(name)
+    for (i = 0; i < length; i++) {
+      const name = $(".form-control")[i].name;
+      if (name) nameList.push(name);
     }
-    for( name of nameList)  {
-      const value =$(`input[name=${name}]`).val()
-      if(!value) {
-        alert(`${name}의 값을 채워주세요!`)
+    for (name of nameList) {
+      const value = $(`input[name=${name}]`).val();
+      if (!value) {
+        alert(`${name}의 값을 채워주세요!`);
         return false;
       }
     }
-  })
+  });
 
   const PostCode = () => {
-
     new daum.Postcode({
       oncomplete: function(data) {
         // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.

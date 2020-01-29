@@ -1,5 +1,4 @@
-<%- include('../layout/header') %>
-<%- include('../layout/navibar') %>
+<%- include('../layout/header') %> <%- include('../layout/navibar') %>
 <div class="col-sm-12">
   <h1>제품</h1>
   <div class="col-sm-12">
@@ -9,17 +8,36 @@
       <div class="col-sm-3">단가</div>
       <div class="col-sm-3">원가</div>
     </div>
-  <% for product in productList %>
-  <div class="col-sm-4"><%= product.name %></div>
-  <div class="col-sm-2"><%= product.section %></div>
-  <div class="col-sm-3"><%= product.price %></div>
-  <div class="col-sm-3"><%= product.cost %></div>
-    <% endfor %>
+    <% for (product of productList) {%>
+    <div class="col-sm-4"><%= product.name %></div>
+    <div class="col-sm-2"><%= product.section %></div>
+    <div class="col-sm-3"><%= product.price %></div>
+    <div class="col-sm-3"><%= product.cost %></div>
+    <% } %>
   </div>
-  <div class="paging">
-    <% for i in range(1, maxPage) %>
-      <a href="/product?page=<%=i%>"><div class="btn btn-default page"><%=i%></div></a>
-    <% endfor %>
+  <div class="col-sm-12">
+    <form class="search" action="">
+      <div class="col-sm-2">
+        <select class="form-control" name="select" id="">
+          <option value="테스트">테스트</option>
+          <option value="테스트2">테스트2</option>
+        </select>
+      </div>
+      <div class="col-sm-9">
+        <input class="form-control" name="searchText" type="text">
+      </div>
+      <div class="col-sm-1">
+        <button class="btn btn-default btn-search">검색</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-12 paging">
+    <% let query %>
+    <% if(urlQuery) query = urlQuery.replace(/&page=(.*?)(&|$)/ig, "") %>
+    <% for (i=1;i<maxPage;i++) { %>
+    <a href="/product?<%=query%>&page=<%=i%>"><div class="btn btn-default page"><%=i%></div></a>
+    <% } %>
   </div>
 </div>
+
 <%- include('../layout/footer') %>

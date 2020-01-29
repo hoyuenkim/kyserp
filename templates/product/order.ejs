@@ -1,0 +1,75 @@
+<%- include('../layout/header') %> <%- include('../layout/navibar.ejs') %>
+
+<div>
+  <form action="" method="POST">
+    <div class="panel default"></div>
+    <div></div>
+    <label for="name">제품명</label>
+    <input class="form-control" id="name" name="name" type="text" onchange="findProduct(this)" />
+    <input id="productId" type="hidden" />
+    <div class="form-margin" id="productList" style="display: none"></div>
+    <label for="quantity">수량</label>
+    <input class="form-control" id="quantity" type="text" name="quantity" />
+    <input class="btn btn-default btn-search" type="submit" value="제출하기" />
+  </form>
+</div>
+
+<script>
+  const findProduct = e => {
+    console.log(e.value);
+    if (!e.value) {
+      $("#productList").html("");
+    } else {
+      axios({
+        url: "/axios/product/find/all",
+        method: "post",
+        data: {
+          name: e.value
+        }
+      })
+        .then(result => {
+          const productList = result.data;
+          let list = "";
+          for (product of productList) {
+            list =
+              list +
+              `
+                <div class="btn btn-default product" productId=${product.id}>${product.name}</div>
+              `;
+          }
+          $("#productList").css("display: block");
+
+          $("#productList").html(list);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  };
+
+  $("#form").submit(() => {
+    const length = $(".form-control").length;
+    const nameList = [];
+    for (i = 0; i < length; i++) {
+      const name = $(".form-control")[i].name;
+      if (name) nameList.push(name);
+    }
+    for (name of nameList) {
+      const value = $(`input[name=${name}]`).val();
+      if (!value) {
+        alert(`${name}의 값을 채워주세요!`);
+        return false;
+      }
+    }
+  });
+
+  $("#productList").on("click", ".product", function() {
+    const name = $(this).text();
+    $("#name").val(name);
+    const productId = $(this).attr("productId");
+    $("#productId").val(productId);
+    $("#productList").html("");
+  });
+</script>
+
+<%- include('../layout/footer.ejs') %>

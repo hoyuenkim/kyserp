@@ -5,14 +5,17 @@
     <label for="name">제품명</label>
     <input class="form-control" id="name" type="text" name="name" onchange="nameConfirm(this)" />
     <label for="name">구분</label>
-    <select class="form-control" name="section" id="section">
+    <select class="form-control" name="section" id="section" onchange="select(this)">
       <option value="onepass">원패스</option>
-      <option value=""></option>
+      <option value="server">서버</option>
     </select>
     <label for="price">단가</label>
-    <input class="form-control" type="text" name="price">
+    <input class="form-control" type="text" name="price" />
     <label for="cost">원가</label>
-    <input class="form-control" type="text" name="cost">
+    <input class="form-control" type="text" name="cost" />
+    <label for="quantity">초기수량</label>
+    <input class="form-control" type="text" name="quantity" />
+
     <input class="btn btn-success submit" type="submit" value="등록하기" />
   </form>
 </div>
@@ -20,35 +23,37 @@
 <script>
   const nameConfirm = e => {
     axios({
-      url: "/product/name/confirm",
+      url: "/axios/product/find/one",
       method: "post",
       data: {
         name: e.value
       }
     })
-      .then(data => {
-        
-      })
+      .then(data => {})
       .catch(e => {
         console.error(e);
       });
   };
 
-  $('#form').submit(()=>{
-    const length = $('.form-control').length;
+  const select = e => {
+    console.log(e.value);
+  };
+
+  $("#form").submit(() => {
+    const length = $(".form-control").length;
     const nameList = [];
-    for(i=0;i<length;i++) {
-      const name = $('.form-control')[i].name;
-      if(name) nameList.push(name)
+    for (i = 0; i < length; i++) {
+      const name = $(".form-control")[i].name;
+      if (name) nameList.push(name);
     }
-    for( name of nameList)  {
-      const value =$(`input[name=${name}]`).val()
-      if(!value) {
-        alert(`${name}의 값을 채워주세요!`)
+    for (name of nameList) {
+      const value = $(`input[name=${name}]`).val();
+      if (!value) {
+        alert(`${name}의 값을 채워주세요!`);
         return false;
       }
     }
-  })
+  });
 </script>
 
 {% endblock %}
