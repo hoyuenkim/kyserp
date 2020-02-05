@@ -1,0 +1,47 @@
+<%- include('../layout/header') %> <%- include('../layout/navibar') %>
+
+<div class="col-sm-offset-1 col-sm-10">
+  <div class="col-sm-12">
+    <div class="col-sm-4">업체명</div>
+    <div class="com-sm-4">연락처</div>
+    <div class="col-sm-2">대표자명</div>
+    <div class="col-sm-2">상세</div>
+    <% for(company of companyList) {%>
+    <div class="col-sm-4"><%=company.name%></div>
+    <div class="com-sm-6"><%=company.phone%></div>
+    <div class="col-sm-2"><%=company.ceo%></div>
+    <div class="col-sm-2">
+      <div class="btn btn-danger">
+        상세
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <div class="col-sm-12 paging">
+    <% let query %>
+    <% if(urlQuery) query = urlQuery.replace(/&page=(.*?)(&|$)/ig, "") %>
+    <% for (i=1;i<maxPage;i++) { %>
+    <a href="/product?<%=query%>&page=<%=i%>"><div class="btn btn-default page"><%=i%></div></a>
+    <% } %>
+  </div>
+  <div class="col-sm-12">
+    <form action="">
+      <div class="col-sm-4">
+        <select class="form-control" name="type">
+          <option value="name">회사명</option>
+          <option value="ceo">대표자명</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <input class="form-control" type="text" />
+      </div>
+      <div class="col-sm-2">
+        <button class="btn btn-default">
+          검색
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../layout/footer') %>

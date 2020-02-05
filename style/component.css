@@ -1,10 +1,11 @@
 .btn-margin {
-  margin: 2%;
+  margin-top: 2%;
   width: 100%;
 }
 
 .form-margin {
-  margin: 2%;
+  margin-top: 1%;
+  margin-bottom: 1%;
   width: 100%;
 }
 
@@ -76,6 +77,14 @@ div.wide {
   margin-top: 1%;
 }
 
-.btn-search {
+.form-group {
+  text-align: center !important;
+}
+
+.btn-danger {
   width: 100%;
+}
+
+.content {
+  margin-top: 1%;
 }

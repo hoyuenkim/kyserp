@@ -1,30 +1,127 @@
 <%- include('../layout/header') %> <%- include('../layout/navibar.ejs') %>
 
 <div>
-  <form action="" method="POST">
-    <div class="panel default"></div>
-    <div></div>
-    <label for="name">제품명</label>
-    <input class="form-control" id="name" name="name" type="text" onchange="findProduct(this)" />
-    <input id="productId" type="hidden" />
-    <div class="form-margin" id="productList" style="display: none"></div>
-    <label for="quantity">수량</label>
-    <input class="form-control" id="quantity" type="text" name="quantity" />
+  <form id="form" action="" method="POST">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        사업자정보
+      </div>
+      <div class="panel-body">
+        <div class="col-sm-12">
+          <input class="form-control" id="company" type="text" />
+          <input type="hidden" name="company" id="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        구매목록
+      </div>
+      <div class="panel-body">
+        <div class="col-sm-offset-10 col-sm-2">
+          <div class="btn btn-success">추가</div>
+        </div>
+        <div class="col-sm-6">
+          제품명
+        </div>
+        <div class="col-sm-4">
+          수량
+        </div>
+        <div class="col-sm-2">
+          삭제
+        </div>
+        <div class="content">
+          <div class="col-sm-6">
+            <input class="form-control name" name="name" type="text" />
+          </div>
+          <input name="productId" class="productId" type="hidden" />
+          <div class="col-sm-4">
+            <input class="form-control" id="quantity" type="text" name="quantity" />
+          </div>
+          <div class="col-sm-2">
+            <div class="btn btn-danger">
+              삭제
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <input class="btn btn-default btn-search" type="submit" value="제출하기" />
   </form>
 </div>
 
 <script>
-  const findProduct = e => {
-    console.log(e.value);
-    if (!e.value) {
-      $("#productList").html("");
+  $(document).on("change", "#company", function() {
+    const company = $(this).val();
+    if (!company) {
+      $(this)
+        .parent()
+        .children("#companyList")
+        .remove();
+    } else {
+      axios({
+        url: "/axios/company/find/all",
+        method: "post",
+        data: {
+          company
+        }
+      })
+        .then(result => {
+          const companyList = result.data;
+          let list = "";
+          for (company of companyList) {
+            list =
+              list +
+              `
+                <div class="btn btn-default company" companyId=${company.id}>${company.name}</div>
+              `;
+          }
+          const div = `<div class="form-margin" id="companyList">
+          ${list}
+          </div>`;
+          $(this)
+            .parent()
+            .append(div);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+  });
+
+  $(document).on("click", ".company", function() {
+    const name = $(this).text();
+    $(this)
+      .parent()
+      .parent()
+      .children("#company")
+      .val(name);
+    const productId = $(this).attr("productId");
+    $(this)
+      .parent()
+      .parent()
+      .children("#companyId")
+      .val(productId);
+    $(this)
+      .parent()
+      .remove();
+  });
+
+  $(document).on("change", ".name", function() {
+    const name = $(this).val();
+    if (!name) {
+      $(this)
+        .parent()
+        .parent()
+        .children(".productList")
+        .remove();
     } else {
       axios({
         url: "/axios/product/find/all",
         method: "post",
         data: {
-          name: e.value
+          name
         }
       })
         .then(result => {
@@ -37,15 +134,19 @@
                 <div class="btn btn-default product" productId=${product.id}>${product.name}</div>
               `;
           }
-          $("#productList").css("display: block");
-
-          $("#productList").html(list);
+          const div = `<div class="form-margin productList">
+          ${list}
+          </div>`;
+          $(this)
+            .parent()
+            .parent()
+            .append(div);
         })
         .catch(e => {
           console.log(e);
         });
     }
-  };
+  });
 
   $("#form").submit(() => {
     const length = $(".form-control").length;
@@ -63,12 +164,48 @@
     }
   });
 
-  $("#productList").on("click", ".product", function() {
+  $(document).on("click", ".product", function() {
     const name = $(this).text();
-    $("#name").val(name);
+    $(this)
+      .parent()
+      .parent()
+      .attr("class");
+    $(this)
+      .parent()
+      .parent()
+      .children()
+      .children(".name")
+      .val(name);
     const productId = $(this).attr("productId");
-    $("#productId").val(productId);
-    $("#productList").html("");
+    $(this)
+      .parent()
+      .parent()
+      .children(".productId")
+      .val(productId);
+    $(this)
+      .parent()
+      .remove();
+  });
+
+  $(document).on("click", ".btn-success", function() {
+    $(this)
+      .parent()
+      .parent()
+      .children(".content")
+      .append(
+        `<div class="content">
+          <div class="col-sm-6">
+            <input class="form-control name" name="name" type="text" />
+          </div>
+          <input name="productId" class="productId" type="hidden" />
+          <div class="col-sm-4">
+            <input class="form-control" id="quantity" type="text" name="quantity" />
+          </div>
+          <div class="col-sm-2">
+            <div class="btn btn-danger">삭제</div>
+          </div>
+        </div>`
+      );
   });
 </script>
 

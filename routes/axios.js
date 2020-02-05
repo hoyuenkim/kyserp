@@ -34,14 +34,26 @@ router.post("/product/find/one", (req, res) => {
 
 router.post("/product/find/all", async (req, res) => {
   try {
-    console.log(req.body);
     const productList = await db.Product.findAll({
       where: {
         name: { [Op.like]: "%" + req.body.name + "%" }
       }
     });
-    console.log(productList);
     res.status(200).json(productList);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send(e);
+  }
+});
+
+router.post("/company/find/all", async (req, res) => {
+  try {
+    const companyList = await db.Company.findAll({
+      where: {
+        name: { [Op.like]: "%" + req.body.company + "%" }
+      }
+    });
+    res.status(200).json(companyList);
   } catch (e) {
     console.log(e);
     res.status(500).send(e);
