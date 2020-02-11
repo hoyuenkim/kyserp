@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const loginRequired = require("../libs/loginRequired");
 const db = require("../models");
-const op = require("sequelize");
+const Op = require("sequelize").Op;
 const multer = require("multer");
 const path = require("path");
 require("dotenv").config();
@@ -45,29 +45,39 @@ router.get("/regist", loginRequired, (req, res) => {
   res.render("product/regist");
 });
 
-router.post("/regist", loginRequired, upload.single("thumbnail"), async (req, res) => {
+router.post("/regist", upload.single("thumbnail"), async (req, res) => {
   try {
+    console.log(req.body);
     const product = await db.Product.create({
       name: req.body.name,
-      section: req.body.section,
       thumbnail: req.file ? req.file.filename : "",
       price: req.body.price,
       cost: req.body.cost
     });
-    const stock = db.Stock.create({
-      productId: product.id,
+    const stock = await db.Stock.create({
       quantity: req.body.quantity,
-      status: true
+      productId: product.id
     });
-    res.redirect("/product");
+    await product.addStock(stock);
+    res.status(200).redirect("/product");
   } catch (e) {
-    console.log(e);
-    res.status(500).send(e);
+    console.error(e);
+    res.status(500).json(e);
   }
 });
 
-router.get("/order", loginRequired, async (req, res) => {
-  res.render("product/order");
+router.post("/name/confirm", async (req, res) => {
+  console.log(req.body);
+  try {
+    const product = await db.Product.findOne({
+      where: {
+        name: req.body.name
+      }
+    });
+    res.status(200).json(product);
+  } catch (e) {
+    console.log(error);
+  }
 });
 
 router.post("/order", loginRequired, async (req, res) => {});
@@ -76,10 +86,12 @@ const createSearch = queries => {
   let findContent = {};
   if (queries.searchType && queries.searchText && queries.searchText.length >= 1) {
     let searchTypes = queries.searchType.toLowerCase().split(",");
+    let queryObject = {};
     let postQueries = [];
     searchTypes.forEach(type => {
       if (searchTypes.indexOf(type) >= 0) {
-        postQueries[type] = { $like: `%${queries.searchText}%` };
+        queryObject[type] = { [Op.like]: `%${queries.searchText}%` };
+        postQueries.push(queryObject);
       }
     });
     if (postQueries.length > 0) findContent = { $or: postQueries };

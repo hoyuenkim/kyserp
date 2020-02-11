@@ -91,18 +91,20 @@ router.get("/verify/:url", async (req, res) => {
     });
 });
 
-router.get("/login", (req, res) => {
-  res.redirect("/");
-});
-
 router.post(
   "/login",
   passport.authenticate("local", {
     failureRedirect: "/",
     failureFlash: true
   }),
-  (req, res) => {
-    res.redirect("/main");
+  async (req, res) => {
+    try {
+      console.log("succcess");
+      res.status(200).redirect("/main");
+    } catch (e) {
+      console.error(e);
+      res.status(500).send(e);
+    }
   }
 );
 

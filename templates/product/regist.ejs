@@ -3,18 +3,12 @@
   <form action="" id="form" method="POST" enctype="multipart/form-data">
     <label for="name">제품명</label>
     <input class="form-control" id="name" type="text" name="name" onchange="nameConfirm(this)" />
-    <label for="name">구분</label>
-    <select class="form-control" name="section" id="section" onchange="select(this)">
-      <option value="onepass">원패스</option>
-      <option value="server">서버</option>
-    </select>
     <label for="price">단가</label>
     <input class="form-control" type="text" name="price" />
     <label for="cost">원가</label>
     <input class="form-control" type="text" name="cost" />
-    <label for="quantity">초기수량</label>
+    <label for="quantity">기초수량</label>
     <input class="form-control" type="text" name="quantity" />
-
     <input class="btn btn-success submit" type="submit" value="등록하기" />
   </form>
 </div>

@@ -65,15 +65,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", csrfProtection, (req, res) => {
-  console.log(req.flash().error);
+app.get("/", (req, res) => {
   res.render("accounts/login", {
-    csrfToken: req.csrfToken(),
     flashMessage: req.flash().error
   });
 });
 
-app.get("/main", loginRequired, async (req, res) => {
+app.get("/main", async (req, res) => {
   res.render("main/home", {
     array: [
       "mike",
@@ -98,10 +96,6 @@ app.get("/main", loginRequired, async (req, res) => {
       "eddie"
     ]
   });
-});
-
-app.get("/home", (req, res) => {
-  res.render("home");
 });
 
 app.listen(process.env.PORT, () => {
